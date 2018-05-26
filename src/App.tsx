@@ -1,13 +1,13 @@
 import * as React from 'react';
 import './App.css';
 
-import IssuePrescription from "./issue/IssuePrescription";
+import PrescriptionsComponent from "./issue/PrescriptionsComponent";
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <IssuePrescription/>
+        <PrescriptionsComponent/>
       </div>
     );
   }
