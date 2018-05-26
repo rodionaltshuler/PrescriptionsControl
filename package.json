@@ -1,0 +1,30 @@
+{
+  "name": "react-ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-button-component": "^1.0.0",
+    "react-dom": "^16.3.2",
+    "react-scripts-ts": "2.16.0",
+    "react-web3": "^0.4.5",
+    "soltsice": "^0.11.5",
+    "truffle-contract": "^3.0.5",
+    "web3-utils": "^1.0.0-beta.34"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject",
+    "build:contracts": "truffle compile && yarn contracts:sync-src",
+    "contracts:sync-src": "rimraf src/contracts && cp -R build/contracts/ src/contracts"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.1.2",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "typescript": "^2.8.3"
+  }
+}
