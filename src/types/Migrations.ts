@@ -6,7 +6,7 @@ import { W3, SoltsiceContract } from 'soltsice';
  * Migrations API
  */
 export class Migrations extends SoltsiceContract {
-    public static get artifacts() { return require('../contracts/Migrations.json'); }
+    public static get artifacts() { return require('../../build/contracts/Migrations.json'); }
 
     public static get bytecodeHash() {
         // we need this before ctor, but artifacts are static and we cannot pass it to the base class, so need to generate

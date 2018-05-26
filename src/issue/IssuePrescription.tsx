@@ -18,7 +18,6 @@ interface IssuePrescriptionState {
 
 class IssuePrescription extends Component<any, IssuePrescriptionState> {
 
-
     constructor(props: any) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -71,13 +70,18 @@ class IssuePrescription extends Component<any, IssuePrescriptionState> {
 
         global.console.log(w3.defaultAccount);
 
+
+        // Issue prescription and get count
         contract1.deployed()
             .then((instance: PrescriptionControl) => {
-                instance.issue(address, "Some drugs to get", {from: address, gas: 1000000} as W3.TX.TxParams)
+                instance.issue(this.state.patient, this.state.contents, {from: address, gas: 1000000} as W3.TX.TxParams)
                     .then((result: any) => instance.getPrescriptionsCount(address))
                     .then((count: BigNumber) => {
-                        global.console.log("Prescription count is " + count.toNumber());
-                    });
+                        global.console.log("Prescriptions count is " + count.toNumber());
+                        return instance.getContentsForAddress(this.state.patient, 0);
+                    })
+                    .then((contents: string) => global.console.log("Prescription 0 content is " + contents))
+                    .catch((onerror : any) => global.console.log("Error: " + onerror.toString()));
             });
     };
 

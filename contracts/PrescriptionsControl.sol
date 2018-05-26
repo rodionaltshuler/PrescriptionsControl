@@ -12,6 +12,9 @@ contract PrescriptionControl {
 
     mapping (address => Prescription[]) prescriptions;
 
+    function getContentsForAddress(address _receipient, uint index) public view returns (string){
+        return prescriptions[_receipient][index].contents;
+    }
 
     function issue(address _receipient, string _contents) public {
         //TODO check whether issuer has rights to issue prescriptions

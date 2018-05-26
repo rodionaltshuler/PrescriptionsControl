@@ -1,13 +1,12 @@
-import {BigNumber} from 'bignumber.js';
-import {W3, SoltsiceContract} from 'soltsice';
+
+import { BigNumber } from 'bignumber.js';
+import { W3, SoltsiceContract } from 'soltsice';
 
 /**
  * PrescriptionControl API
  */
 export class PrescriptionControl extends SoltsiceContract {
-    public static get artifacts() {
-        return require('../contracts/PrescriptionControl.json');
-    }
+    public static get artifacts() { return require('../../build/contracts/PrescriptionControl.json'); }
 
     public static get bytecodeHash() {
         // we need this before ctor, but artifacts are static and we cannot pass it to the base class, so need to generate
@@ -70,11 +69,21 @@ export class PrescriptionControl extends SoltsiceContract {
             link
         );
     }
-
     /*
         Contract methods
     */
-
+    
+    // tslint:disable-next-line:max-line-length
+    // tslint:disable-next-line:variable-name
+    public getContentsForAddress(_receipient: string, index: BigNumber | number, txParams?: W3.TX.TxParams): Promise<string> {
+        return new Promise((resolve, reject) => {
+            this._instance.getContentsForAddress
+                .call(_receipient, index, txParams || this._sendParams)
+                .then((res: any) => resolve(res))
+                .catch((err: any) => reject(err));
+        });
+    }
+    
     // tslint:disable-next-line:member-ordering
     public issue = Object.assign(
         // tslint:disable-next-line:max-line-length
@@ -132,7 +141,7 @@ export class PrescriptionControl extends SoltsiceContract {
                 });
             }
         });
-
+    
     // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:variable-name
     public getPrescriptionsCount(_receipient: string, txParams?: W3.TX.TxParams): Promise<BigNumber> {
@@ -143,7 +152,7 @@ export class PrescriptionControl extends SoltsiceContract {
                 .catch((err: any) => reject(err));
         });
     }
-
+    
     // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:variable-name
     public getPrescriptionContents(_receipient: string, _id: BigNumber | number, txParams?: W3.TX.TxParams): Promise<string> {
@@ -154,7 +163,7 @@ export class PrescriptionControl extends SoltsiceContract {
                 .catch((err: any) => reject(err));
         });
     }
-
+    
     // tslint:disable-next-line:member-ordering
     public shipPrescription = Object.assign(
         // tslint:disable-next-line:max-line-length
@@ -212,5 +221,5 @@ export class PrescriptionControl extends SoltsiceContract {
                 });
             }
         });
-
+    
 }
