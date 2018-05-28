@@ -1,13 +1,15 @@
 import {W3} from "soltsice";
 import Provider = W3.Provider;
+import Prescription from "../types/Prescription";
+
 const TruffleContract = require("truffle-contract");
 const contractJson = require("./../contracts/PrescriptionControl.json");
 
 export default class Prescriptions {
 
-    private w3 : W3 = new W3();
-    private provider : Provider;
-    private prescriptionsContract : any;
+    private w3: W3 = new W3();
+    private provider: Provider;
+    private prescriptionsContract: any;
 
     constructor() {
         this.provider = new W3.providers.HttpProvider('http://localhost:9545');
@@ -22,17 +24,24 @@ export default class Prescriptions {
         return contract.issue(patient, contents, {from: await from, gas: 1000000} as W3.TX.TxParams);
     }
 
-    public async getAllForPatient(patient: string): Promise<string[]> {
+    public async getAllForPatient(patient: string): Promise<Prescription[]> {
         let contract = await this.prescriptionsContract.deployed();
         let count = await contract.getPrescriptionsCount(patient);
         global.console.log("Having " + count + " prescriptions for " + patient);
-        const contents: string[] = new Array<string>(count);
+        const prescriptions = new Array<Prescription>(count);
 
         // TODO rewrite for parallel execution
         for (let i = 0; i < count; i++) {
-            contents[i] = await contract.getContentsForAddress(patient, i);
+            const nextPrescription: any = await contract.getPrescriptionForAddress(patient, i);
+            global.console.log(nextPrescription);
+            prescriptions[i] = {
+                issuer: nextPrescription[1],
+                patient: nextPrescription[2],
+                received: nextPrescription[3],
+                contents: nextPrescription[4]
+            }
         }
-        return contents;
+        return prescriptions;
     }
 
     private async userAddress(): Promise<string> {

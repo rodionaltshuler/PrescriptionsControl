@@ -12,9 +12,9 @@ contract PrescriptionControl {
 
     mapping (address => Prescription[]) prescriptions;
 
-    function getPrescriptionForAddress(address _receipient, uint index) public view returns (uint, address, bool, string) {
-        Prescription item = prescriptions[_receipient][index];
-        return (item.id, item.issuer, item.received, item.contents);
+    function getPrescriptionForAddress(address _receipient, uint index) public view returns (uint, address, address, bool, string) {
+        Prescription storage item = prescriptions[_receipient][index];
+        return (item.id, item.issuer, item.receipient, item.received, item.contents);
     }
 
     function getContentsForAddress(address _receipient, uint index) public view returns (string){

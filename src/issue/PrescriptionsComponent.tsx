@@ -3,6 +3,7 @@ import {W3} from "soltsice";
 import * as React from 'react';
 import Prescriptions from "./Prescriptions";
 import PrescriptionItemComponent from './PrescriptionItemComponent';
+import Prescription from "../types/Prescription";
 
 interface IssuePrescriptionState {
     patient: string,
@@ -54,13 +55,9 @@ class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
 
     private async showExistingPrescriptions(patient: string) {
         global.console.log("Showing prescriptions for " + patient);
-        const existing: string[] = await this.prescriptions.getAllForPatient(patient);
+        const existing: Prescription[] = await this.prescriptions.getAllForPatient(patient);
         const existingPrescriptions = existing
-            .filter(item => item != null && item.length > 0)
-            .map(item => {
-            return {contents: item}
-        });
-
+            .filter(item => !item.received && item.contents != null && item.contents.length > 0);
         this.setState({existingPrescriptions});
         existing.forEach(item => global.console.log(item));
     }
@@ -68,9 +65,9 @@ class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
     private async handleSubmit() {
         if (this.state.contents) {
             await this.prescriptions.issue(this.state.patient, this.state.contents);
-            global.console.log("IPrescription submitted");
+            global.console.log("Prescription submitted");
         } else {
-            global.console.log("IPrescription is empty, nothing to submit");
+            global.console.log("Prescription is empty, nothing to submit");
         }
     };
 

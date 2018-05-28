@@ -3,7 +3,9 @@
   "rules": {
     "ordered-imports": false,
     "prefer-const": false,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "interface-name": false,
+    "object-literal-sort-keys": false
   },
   "jsRules":{
     "object-literal-sort-keys": false,

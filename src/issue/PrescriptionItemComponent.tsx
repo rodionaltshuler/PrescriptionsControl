@@ -1,9 +1,10 @@
 import {Component} from "react";
 import * as React from 'react';
+import Prescription from "../types/Prescription";
 
-class PrescriptionItemComponent extends Component<any, any> {
+class PrescriptionItemComponent extends Component<Prescription, any> {
 
-    constructor(props : any) {
+    constructor(props : Prescription) {
         super(props);
     }
 
