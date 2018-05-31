@@ -1,0 +1,6 @@
+@import "~@material/button/mdc-button";
+
+.simple-button {
+  @include mdc-button-ink-color(teal);
+  @include mdc-button-container-fill-color(white);
+}

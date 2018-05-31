@@ -4,11 +4,13 @@ import * as React from 'react';
 import Prescriptions from "./Prescriptions";
 import PrescriptionItemComponent from './PrescriptionItemComponent';
 import Prescription from "../types/Prescription";
+import 'node_modules/material-components-web/material-components-web.scss';
+import './PrescriptionComponent.scss';
 
 interface IssuePrescriptionState {
     patient: string,
     contents: string,
-    existingPrescriptions: any[]
+    existingPrescriptions: Prescription[]
 }
 
 class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
@@ -26,10 +28,10 @@ class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
 
     public render() {
         const issuePrescriptionButton = W3.isValidAddress(this.state.patient) && this.state.contents ?
-            <div onClick={this.handleSubmit}>Issue</div> : null;
+            <button className="mdc-button mdc-button--raised simple-button" onClick={this.handleSubmit}>Issue</button> : null;
 
         const showPrescriptionsButton = W3.isValidAddress(this.state.patient) ?
-            <div onClick={this.showExistingPrescriptions.bind(this, this.state.patient)}>Show prescriptions</div> :
+            <button className="mdc-button simple-button" onClick={this.showExistingPrescriptions.bind(this, this.state.patient)}>Show prescriptions</button> :
             null;
 
         const existingItems = this.state.existingPrescriptions.map(item => {
@@ -47,7 +49,9 @@ class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
                 <br/>
                 {showPrescriptionsButton}
                 <br/>
+                <ul className="mdc-list">
                 {existingItems}
+                </ul>
             </div>
         );
     }
