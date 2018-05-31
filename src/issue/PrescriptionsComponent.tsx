@@ -21,7 +21,7 @@ class PrescriptionsComponent extends Component<any, IssuePrescriptionState> {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showExistingPrescriptions = this.showExistingPrescriptions.bind(this);
-        this.state = {patient: "", contents: "", existingPrescriptions: []};
+        this.state = {patient: "0xf17f52151ebef6c7334fad080c5704d77216b732", contents: "", existingPrescriptions: []};
     }
 
     public render() {
